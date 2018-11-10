@@ -25,12 +25,14 @@
  * device tree.
  */
 
-static const char* CPU_SYSFS_PATHS[1] = {
-    "/sys/devices/system/cpu/cpu0"
+static const char* CPU_SYSFS_PATHS[2] = {
+    "/sys/devices/system/cpu/cpu0",
+    "/sys/devices/system/cpu/cpu4"
 };
 
-static const char* CPU_INTERACTIVE_PATHS[1] = {
-    "/sys/devices/system/cpu/cpu0/cpufreq/interactive"
+static const char* CPU_INTERACTIVE_PATHS[2] = {
+    "/sys/devices/system/cpu/cpu0/cpufreq/cafactive",
+    "/sys/devices/system/cpu/cpu4/cpufreq/cafactive"
 };
 
 #endif // SAMSUNG_POWER_H
