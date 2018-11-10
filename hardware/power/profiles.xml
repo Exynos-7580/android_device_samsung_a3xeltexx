@@ -42,10 +42,10 @@
                 <enabled>true</enabled>
 
                 <!-- {string} The governor used on this cluster -->
-                <governor>interactive</governor>
+                <governor>cafactive</governor>
 
                 <!-- {number} Minimal frequency of this cluster -->
-                <freq_min>400000</freq_min>
+                <freq_min>100000</freq_min>
 
                 <!-- {number} Maximal frequency of this cluster -->
                 <freq_max>1000000</freq_max>
@@ -55,7 +55,7 @@
 
                 <!-- {number} Frequency used in boostpulse mode (if supported, else any positive
                      number to enable boostpules) or zero to disable boostpulses -->
-                <freq_boost>1</freq_boost>
+                <freq_boost>0</freq_boost>
 
                 <!-- State of each core of this cluster  -->
                 <cores>
@@ -82,6 +82,7 @@
                     <go_hispeed_load>89</go_hispeed_load>
                     <min_sample_time>20000</min_sample_time>
                     <target_loads>75 600000:80 800000:85</target_loads>
+                    <io_is_busy>0</io_is_busy>
                     <timer_rate>20000</timer_rate>
                     <timer_slack>20000</timer_slack>
                 </governor_data>
@@ -89,17 +90,17 @@
 
             <cluster2>
                 <!-- {boolean} Whether the settings for the second CPU cluster should be applied or not -->
-                <enabled>false</enabled>
+                <enabled>true</enabled>
 
-                <governor>interactive</governor>
-                <freq_min>400000</freq_min>
+                <governor>cafactive</governor>
+                <freq_min>100000</freq_min>
                 <freq_max>1000000</freq_max>
                 <freq_hispeed>600000</freq_hispeed>
                 <freq_boost>0</freq_boost>
 
                 <cores>
-                    <enabled>false</enabled>
-                    <core1>false</core1>
+                    <enabled>true</enabled>
+                    <core1>true</core1>
                     <core2>false</core2>
                     <core3>false</core3>
                     <core4>false</core4>
@@ -111,6 +112,7 @@
                     <go_hispeed_load>89</go_hispeed_load>
                     <min_sample_time>20000</min_sample_time>
                     <target_loads>75 600000:80 800000:85</target_loads>
+                    <io_is_busy>0</io_is_busy>
                     <timer_rate>20000</timer_rate>
                     <timer_slack>20000</timer_slack>
                 </governor_data>
@@ -122,10 +124,10 @@
             <enabled>true</enabled>
 
             <!-- {string} CPU-configuration for the default cpuset (tasks without specific cpuset) -->
-            <default>0-3</default>
+            <default>0,4</default>
 
             <!-- {string} CPU-configuration for the "foreground"-cpuset -->
-            <foreground>0-3</foreground>
+            <foreground>0,4</foreground>
 
             <!-- {string} CPU-configuration for the "background"-cpuset -->
             <background>0</background>
@@ -134,7 +136,7 @@
             <system_background>0</system_background>
 
             <!-- {string} CPU-configuration for the "top-app"-cpuset -->
-            <top_app>0-3</top_app>
+            <top_app>0,4</top_app>
 
         </cpusets>
 
@@ -202,6 +204,7 @@
                     <go_hispeed_load>89</go_hispeed_load>
                     <min_sample_time>20000</min_sample_time>
                     <target_loads>75 600000:80 800000:85</target_loads>
+                    <io_is_busy>1</io_is_busy>
                     <timer_rate>20000</timer_rate>
                     <timer_slack>20000</timer_slack>
                 </governor_data>
@@ -214,6 +217,7 @@
                     <go_hispeed_load>89</go_hispeed_load>
                     <min_sample_time>20000</min_sample_time>
                     <target_loads>75 600000:80 800000:85</target_loads>
+                    <io_is_busy>1</io_is_busy>
                     <timer_rate>20000</timer_rate>
                     <timer_slack>20000</timer_slack>
                 </governor_data>
@@ -262,6 +266,17 @@
             </cluster1>
 
             <cluster2>
+                <freq_max>1200000</freq_max>
+                <freq_hispeed>800000</freq_hispeed>
+
+                <cores>
+                    <enabled>true</enabled>
+                    <core1>true</core1>
+                    <core2>true</core2>
+                    <core3>true</core3>
+                    <core4>true</core4>
+                </cores>
+
 				<!-- TODO: governor-data cannot be inherited yet -->
                 <governor_data>
                     <above_hispeed_delay>40000 600000:60000 800000:100000</above_hispeed_delay>
@@ -276,11 +291,11 @@
         </cpu>
         <cpusets>
             <enabled>true</enabled>
-            <default>0-3</default>
-            <foreground>0-3</foreground>
-            <background>0-1</background>
-            <system_background>0-1</system_background>
-            <top_app>0-3</top_app>
+            <default>0-7</default>
+            <foreground>0-7</foreground>
+            <background>0,4</background>
+            <system_background>0,4</system_background>
+            <top_app>0-7</top_app>
         </cpusets>
         <gpu>
             <dvfs>
@@ -295,31 +310,34 @@
     <!--
         Profile for balanced system performance and efficiency
     -->
-    <balanced extends="bias_power_save">
+    <balanced extends="power_save">
         <enabled>true</enabled>
         <cpu>
             <cluster1>
-                <freq_max>1500000</freq_max>
+                <freq_max>1400000</freq_max>
                 <freq_hispeed>900000</freq_hispeed>
-                <freq_boost>1</freq_boost>
 				<!-- TODO: governor-data cannot be inherited yet -->
                 <governor_data>
                     <above_hispeed_delay>39000 1200000:19000</above_hispeed_delay>
                     <go_hispeed_load>89</go_hispeed_load>
                     <min_sample_time>40000</min_sample_time>
                     <target_loads>75 1200000:85</target_loads>
+                    <io_is_busy>1</io_is_busy>
                     <timer_rate>20000</timer_rate>
                     <timer_slack>20000</timer_slack>
                     <boostpulse_duration>40000</boostpulse_duration>
                 </governor_data>
             </cluster1>
             <cluster2>
+                <freq_max>1400000</freq_max>
+                <freq_hispeed>900000</freq_hispeed>
 				<!-- TODO: governor-data cannot be inherited yet -->
                 <governor_data>
                     <above_hispeed_delay>39000 1200000:19000</above_hispeed_delay>
                     <go_hispeed_load>89</go_hispeed_load>
                     <min_sample_time>40000</min_sample_time>
                     <target_loads>75 1200000:85</target_loads>
+                    <io_is_busy>1</io_is_busy>
                     <timer_rate>20000</timer_rate>
                     <timer_slack>20000</timer_slack>
                     <boostpulse_duration>40000</boostpulse_duration>
@@ -340,10 +358,11 @@
         Profile for balanced system performance and efficiency,
         but being closer to the performable system
     -->
-    <bias_performance extends="balanced">
+    <bias_performance extends="power_save">
         <enabled>true</enabled>
         <cpu>
             <cluster1>
+                <freq_max>1500000</freq_max>
                 <freq_hispeed>1500000</freq_hispeed>
 				<!-- TODO: governor-data cannot be inherited yet -->
                 <governor_data>
@@ -352,14 +371,16 @@
                     <boostpulse_duration>80000</boostpulse_duration>
                     <hispeed_freq>1500000</hispeed_freq>
                     <go_hispeed_load>85</go_hispeed_load>
-                    <io_is_busy>0</io_is_busy>
                     <min_sample_time>40000</min_sample_time>
                     <target_loads>75</target_loads>
+                    <io_is_busy>1</io_is_busy>
                     <timer_rate>20000</timer_rate>
                     <timer_slack>20000</timer_slack>
                 </governor_data>
             </cluster1>
             <cluster2>
+                <freq_max>1500000</freq_max>
+                <freq_hispeed>1500000</freq_hispeed>
 				<!-- TODO: governor-data cannot be inherited yet -->
                 <governor_data>
                     <above_hispeed_delay>19000</above_hispeed_delay>
@@ -367,17 +388,17 @@
                     <boostpulse_duration>80000</boostpulse_duration>
                     <hispeed_freq>1500000</hispeed_freq>
                     <go_hispeed_load>85</go_hispeed_load>
-                    <io_is_busy>0</io_is_busy>
                     <min_sample_time>40000</min_sample_time>
                     <target_loads>75</target_loads>
+                    <io_is_busy>1</io_is_busy>
                     <timer_rate>20000</timer_rate>
                     <timer_slack>20000</timer_slack>
                 </governor_data>
             </cluster2>
         </cpu>
         <cpusets>
-            <background>0-3</background>
-            <system_background>0-3</system_background>
+            <background>0-7</background>
+            <system_background>0-7</system_background>
         </cpusets>
         <gpu>
             <dvfs>
@@ -396,14 +417,15 @@
         <enabled>true</enabled>
         <cpu>
             <cluster1>
+                <freq_max>1700000</freq_max>
+                <freq_hispeed>1700000</freq_hispeed>
 				<!-- TODO: governor-data cannot be inherited yet -->
                 <governor_data>
                     <above_hispeed_delay>19000</above_hispeed_delay>
                     <boost>0</boost>
                     <boostpulse_duration>80000</boostpulse_duration>
-                    <hispeed_freq>1500000</hispeed_freq>
+                    <hispeed_freq>1700000</hispeed_freq>
                     <go_hispeed_load>85</go_hispeed_load>
-                    <io_is_busy>0</io_is_busy>
                     <min_sample_time>40000</min_sample_time>
                     <target_loads>75</target_loads>
                     <timer_rate>20000</timer_rate>
@@ -411,14 +433,15 @@
                 </governor_data>
             </cluster1>
             <cluster2>
+                <freq_max>1700000</freq_max>
+                <freq_hispeed>1700000</freq_hispeed>
 				<!-- TODO: governor-data cannot be inherited yet -->
                 <governor_data>
                     <above_hispeed_delay>20000</above_hispeed_delay>
                     <boost>0</boost>
                     <boostpulse_duration>80000</boostpulse_duration>
-                    <hispeed_freq>1500000</hispeed_freq>
+                    <hispeed_freq>1700000</hispeed_freq>
                     <go_hispeed_load>99</go_hispeed_load>
-                    <io_is_busy>0</io_is_busy>
                     <min_sample_time>80000</min_sample_time>
                     <target_loads>90</target_loads>
                     <timer_rate>20000</timer_rate>
@@ -428,11 +451,11 @@
         </cpu>
         <cpusets>
             <enabled>true</enabled>
-            <default>0-3</default>
-            <foreground>0-3</foreground>
-            <background>0-3</background>
-            <system_background>0-3</system_background>
-            <top_app>0-3</top_app>
+            <default>0-7</default>
+            <foreground>0-7</foreground>
+            <background>0-7</background>
+            <system_background>0-7</system_background>
+            <top_app>0-7</top_app>
         </cpusets>
         <gpu>
             <dvfs>
