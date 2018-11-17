@@ -29,4 +29,5 @@ TARGET_CUSTOM_DTBTOOL := dtbhtoolExynos
 # Kernel
 TARGET_KERNEL_CONFIG := lineageos_a3xelte_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/exynos7580-common
+TARGET_KERNEL_CUSTOM_TOOLCHAIN := aarch64-cortex_a53-linux-gnueabi-6.4.1/bin/aarch64-cortex_a53-linux-gnueabi-
 BOARD_KERNEL_IMAGE_NAME := Image
