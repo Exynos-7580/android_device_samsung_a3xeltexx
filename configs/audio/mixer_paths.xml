@@ -2338,7 +2338,7 @@
 	</path>
 
 	<!-- camcorder input volume -->
-	<path name="gain-camcorder-mic">
+	<path name="gain-camcorder-mic-oe">
 		<ctl name="MIC1 Volume" value="13" />
 		<ctl name="MIC1 Boost Volume" value="1" />
 		<ctl name="Line-in Volume" value="4" />
